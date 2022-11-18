@@ -1,0 +1,16 @@
+{
+  "name": "onion/process",
+  "description": "A simple wrapper to work with external processes",
+  "autoload": {
+    "psr-4": {
+      "Onion\\Framework\\Process\\": "src/"
+    }
+  },
+  "require-dev": {
+    "roave/security-advisories": "@dev"
+  },
+  "require": {
+    "onion/event-loop": "@dev",
+    "onion/interfaces": "@dev"
+  }
+}
