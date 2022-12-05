@@ -7,6 +7,8 @@ namespace Onion\Framework\Process;
 use Onion\Framework\Loop\Descriptor;
 use Onion\Framework\Loop\Interfaces\ResourceInterface;
 
+use function Onion\Framework\Loop\with;
+
 class Process
 {
     private readonly mixed $resource;
@@ -75,6 +77,10 @@ class Process
         $this->input = new Descriptor($pipes[0]);
         $this->output = new Descriptor($pipes[1]);
         $this->error = new Descriptor($pipes[2]);
+
+        $this->input->unblock();
+        $this->output->unblock();
+        $this->error->unblock();
     }
 
     public function input(): ResourceInterface
@@ -103,6 +109,11 @@ class Process
         }
 
         return $status;
+    }
+
+    public function join(): void
+    {
+        with(fn () => !$this->running());
     }
 
     public function status(): ?array
